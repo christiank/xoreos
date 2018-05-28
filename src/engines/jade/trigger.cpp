@@ -27,6 +27,10 @@
 #include "src/common/error.h"
 #include "src/common/maths.h"
 
+#include "src/graphics/mesh/meshman.h"
+#include "src/graphics/shader/materialman.h"
+#include "src/graphics/shader/surfaceman.h"
+
 #include "src/aurora/locstring.h"
 #include "src/aurora/gff3file.h"
 
@@ -139,6 +143,18 @@ void Trigger::loadInstance(const Aurora::GFF3Struct &gff) {
 		*v++ = y;
 		*v++ = z;
 	}
+
+  status("** load trigger point (%0.2f, %0.2f, %0.2f)", x, y, z);
+
+	_boundRenderable = new Graphics::Shader::ShaderRenderable();
+	_boundRenderable->setSurface(SurfaceMan.getSurface("defaultSurface"));
+	_boundRenderable->setMaterial(MaterialMan.getMaterial("defaultWhite"));
+	_boundRenderable->setMesh(MeshMan.getMesh("defaultWireBox"));
+
+	glm::mat4 tform = _absolutePosition;
+	//tform = glm::translate(tform, glm::vec3((maxX + minX) * 0.5f, (maxY + minY) * 0.5f, (maxZ + minZ) * 0.5f));
+	//tform = glm::scale(tform, glm::vec3((maxX - minX) * 0.5f, (maxY - minY) * 0.5f, (maxZ - minZ) * 0.5f));
+	_boundRenderable->renderImmediate(tform);
 }
 
 } // End of namespace Jade

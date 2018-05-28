@@ -28,6 +28,8 @@
 #include "src/common/types.h"
 #include "src/common/ustring.h"
 
+#include "src/graphics/shader/shaderrenderable.h"
+
 #include "src/aurora/types.h"
 
 #include "src/graphics/vertexbuffer.h"
@@ -76,6 +78,8 @@ private:
 	bool _isCombatActive; ///< Does this trigger have henchmen data?
 
 	int _loadScreen;         ///< The loading screen used.
+
+	Graphics::Shader::ShaderRenderable *_boundRenderable;
 
 	Common::UString _transitionText; ///< The trigger's transition text.
 

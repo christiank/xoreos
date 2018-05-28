@@ -774,7 +774,7 @@ void Model::doDrawBound() {
 		return;
 
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glLineWidth(1.0f);
+	glLineWidth(1.5f);
 
 	Common::BoundingBox object = _boundBox;
 
