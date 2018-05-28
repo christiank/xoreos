@@ -258,6 +258,9 @@ static void initConfig() {
 
 	ConfigMan.setBool(Common::kConfigRealmDefault, "saveconf", true);
 
+	ConfigMan.setBool(Common::kConfigRealmDefault, "invertxaxis", false);
+	ConfigMan.setBool(Common::kConfigRealmDefault, "invertyaxis", false);
+
 	// Populate the new config with the defaults
 	if (newConfig) {
 		ConfigMan.setDefaults();
