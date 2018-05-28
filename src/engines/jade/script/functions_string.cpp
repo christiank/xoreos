@@ -38,6 +38,7 @@
 #include "src/aurora/nwscript/util.h"
 
 #include "src/engines/aurora/tokenman.h"
+#include "src/engines/aurora/util.h"
 
 #include "src/engines/jade/objectcontainer.h"
 #include "src/engines/jade/object.h"
@@ -251,6 +252,12 @@ void Functions::setCustomToken(Aurora::NWScript::FunctionContext &ctx) {
 
 	TokenMan.set(tokenName, tokenValue);
 }
+
+void Functions::playSound2D(Aurora::NWScript::FunctionContext &ctx) {
+  const Common::UString &name = ctx.getParams()[0].getString();
+  playSound(name, Sound::kSoundTypeSFX);
+}
+
 
 } // End of namespace Jade
 

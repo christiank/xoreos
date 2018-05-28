@@ -170,7 +170,7 @@ const Functions::FunctionPointer Functions::kFunctionPointers[] = {
 	{   43, "ActionOpenDoor"                         , &Functions::actionOpenDoor                          },
 	{   44, "ActionCloseDoor"                        , &Functions::actionCloseDoor                         },
 	{   45, "SetCameraFacing"                        , 0                                                   },
-	{   46, "PlaySound2D"                            , 0                                                   },
+	{   46, "PlaySound2D"                            , &Functions::playSound2D                             },
 	{   47, "PlaySound3D"                            , 0                                                   },
 	{   48, "PlaySoundAtPosition"                    , 0                                                   },
 	{   49, "GetHealth"                              , 0                                                   },
