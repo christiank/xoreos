@@ -137,6 +137,7 @@ void Area::loadARE(const Aurora::GFF3Struct &are) {
 }
 
 void Area::loadSAV(const Aurora::GFF3Struct &sav) {
+
 	if (sav.hasField("CreatureList")) {
 		const Aurora::GFF3Struct &creatures = sav.getStruct("CreatureList");
 		loadCreatures(creatures.getList("StaticList"));
@@ -151,7 +152,11 @@ void Area::loadSAV(const Aurora::GFF3Struct &sav) {
 		loadPlaceables(placeables.getList("DynamicList"));
 	}
 
-	// TODO load sound list
+  if (sav.hasField("SoundList")) {
+    const Aurora::GFF3Struct &sounds = sav.getStruct("SoundList");
+    loadSounds(sounds.getList("StaticList"));
+    loadSounds(sounds.getList("DynamicList"));
+  }
 
 	if (sav.hasField("TriggerList")) {
 		const Aurora::GFF3Struct &trigger = sav.getStruct("TriggerList");
@@ -219,6 +224,16 @@ void Area::loadPlaceables(const Aurora::GFF3List &list) {
 		Placeable *placeable = new Placeable(**c);
 
 		loadObject(*placeable);
+	}
+}
+
+void Area::loadSounds(const Aurora::GFF3List &list) {
+	for (Aurora::GFF3List::const_iterator c = list.begin(); c != list.end(); ++c) {
+    status("LOADING A SOUND");
+    std::vector<Common::UString> names = (**c).getFieldNames();
+    for (std::vector<Common::UString>::iterator i = names.begin(); i != names.end(); ++i) {
+      status("\t%s", i->c_str());
+    }
 	}
 }
 
