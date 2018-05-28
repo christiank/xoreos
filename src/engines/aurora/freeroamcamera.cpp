@@ -22,6 +22,8 @@
  *  Engine utility class for free-roam camera handling.
  */
 
+#include "src/common/configman.h"
+
 #include "src/graphics/camera.h"
 
 #include "src/engines/aurora/freeroamcamera.h"
@@ -68,11 +70,15 @@ bool FreeRoamCamera::handleCameraKeyboardInput(const Events::Event &e) {
 		CameraMan.moveRelative(0.0f, multiplier *  0.5f, 0.0f);
 	else if (e.key.keysym.sym      == SDLK_DELETE)
 		CameraMan.moveRelative(0.0f, multiplier * -0.5f, 0.0f);
-	else if (e.key.keysym.sym      == SDLK_PAGEUP)
-		CameraMan.turn(multiplier *  5.0f,  0.0f, 0.0f);
-	else if (e.key.keysym.sym      == SDLK_PAGEDOWN)
-		CameraMan.turn(multiplier * -5.0f,  0.0f, 0.0f);
-	else if (e.key.keysym.sym      == SDLK_END) {
+	else if (e.key.keysym.sym      == SDLK_PAGEUP) {
+		if (ConfigMan.getBool("invertyaxis"))
+			multiplier = -multiplier;
+		CameraMan.turn(multiplier *  5.0f,	0.0f, 0.0f);
+	} else if (e.key.keysym.sym    == SDLK_PAGEDOWN) {
+		if (ConfigMan.getBool("invertyaxis"))
+			multiplier = -multiplier;
+		CameraMan.turn(multiplier * -5.0f,	0.0f, 0.0f);
+	} else if (e.key.keysym.sym      == SDLK_END) {
 		const float *orient = CameraMan.getOrientation();
 
 		CameraMan.setOrientation(90.0f, orient[1], orient[2]);
@@ -83,11 +89,19 @@ bool FreeRoamCamera::handleCameraKeyboardInput(const Events::Event &e) {
 }
 
 bool FreeRoamCamera::handleCameraMouseInput(const Events::Event &e) {
+	float x_multiplier = -0.5f;
+	float y_multiplier = -0.5f;
+
 	// Holding down the middle mouse button enables free look.
-	if (e.motion.state & SDL_BUTTON(2))
-		CameraMan.turn(-0.5f * e.motion.yrel, 0.0f, -0.5f * e.motion.xrel);
-	else
+	if (e.motion.state & SDL_BUTTON(2)) {
+		if (ConfigMan.getBool("invertxaxis"))
+			x_multiplier = -x_multiplier;
+		if (ConfigMan.getBool("invertyaxis"))
+			y_multiplier = -y_multiplier;
+		CameraMan.turn(y_multiplier * e.motion.yrel, 0.0f, x_multiplier * e.motion.xrel);
+	} else {
 		return false;
+	}
 
 	return true;
 }

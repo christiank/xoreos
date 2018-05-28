@@ -61,6 +61,8 @@ static void displayUsage(const Common::UString &name) {
 	std::printf("          --nologfile=BOOL    Don't write a log file.\n");
 	std::printf("          --consolelog=FILE   Write all debug console output into this file too.\n");
 	std::printf("          --noconsolelog=BOOL Don't write a debug console log file.\n");
+	std::printf("          --invertxaxis=BOOL  Invert the X-axis of mouse movement.\n");
+	std::printf("          --invertyaxis=BOOL  Invert the Y-axis of mouse movement.\n");
 	std::printf("\n");
 	std::printf("FILE: Absolute or relative path to a file.\n");
 	std::printf("DIR:  Absolute or relative path to a directory.\n");
