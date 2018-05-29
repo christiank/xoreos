@@ -234,7 +234,9 @@ private:
 	// '---
 
 	// .--- Creatures, functions_creature.cpp
-	void getAutoBalance(Aurora::NWScript::FunctionContext &ctx);
+	void getAutoBalance        (Aurora::NWScript::FunctionContext &ctx);
+	void getAggressivenessValue(Aurora::NWScript::FunctionContext &ctx);
+	void setAggressivenessValue(Aurora::NWScript::FunctionContext &ctx);
 	// '---
 
 	// .--- Actions, functions_action.cpp

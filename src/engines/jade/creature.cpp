@@ -75,6 +75,14 @@ int32 Creature::getAutoBalance() const {
 	return _autoBalance;
 }
 
+int32 Creature::getAggressivenessValue() const {
+	return _aggressivenessValue;
+}
+
+void Creature::setAggressivenessValue(int32 value) {
+	_aggressivenessValue = value;
+}
+
 void Creature::setPosition(float x, float y, float z) {
 	Object::setPosition(x, y, z);
 	Object::getPosition(x, y, z);

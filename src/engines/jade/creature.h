@@ -61,6 +61,9 @@ public:
 
 	int32 getAutoBalance() const;
 
+	int32 getAggressivenessValue() const;
+	void setAggressivenessValue(int32 value);
+
 	// Positioning
 
 	/** Set the creature's position. */
@@ -80,6 +83,7 @@ private:
 	bool _isPC; ///< Is the creature a PC?
 
 	int32 _autoBalance;
+	int32 _aggressivenessValue;
 
 	uint32 _appearance; ///< The creature's general appearance.
 	uint32 _headType;   ///< The creature's type of head if separate from the model.

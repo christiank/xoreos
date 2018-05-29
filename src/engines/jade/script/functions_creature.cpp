@@ -42,6 +42,19 @@ void Functions::getAutoBalance(Aurora::NWScript::FunctionContext &ctx) {
 	ctx.getReturn() = creature ? (int32) creature->getAutoBalance() : 0;
 }
 
+void Functions::getAggressivenessValue(Aurora::NWScript::FunctionContext &ctx) {
+	Creature *creature = Jade::ObjectContainer::toCreature(getParamObject(ctx, 0));
+
+	ctx.getReturn() = creature->getAggressivenessValue();
+}
+
+void Functions::setAggressivenessValue(Aurora::NWScript::FunctionContext &ctx) {
+	Creature *creature = Jade::ObjectContainer::toCreature(getParamObject(ctx, 0));
+	const int32 value = ctx.getParams()[1].getInt();
+
+	creature->setAggressivenessValue(value);
+}
+
 } // End of namespace Jade
 
 } // End of namespace Engines
