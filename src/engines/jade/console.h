@@ -54,6 +54,7 @@ private:
 
 	// The commands
 	void cmdExitModule (const CommandLine &cl);
+	void cmdGetModule  (const CommandLine &cl);
 	void cmdListModules(const CommandLine &cl);
 	void cmdLoadModule (const CommandLine &cl);
 };
