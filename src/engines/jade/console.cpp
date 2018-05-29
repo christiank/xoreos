@@ -51,6 +51,8 @@ Console::Console(JadeEngine &engine) :
 
 	registerCommand("exitmodule" , boost::bind(&Console::cmdExitModule , this, _1),
 			"Usage: exitmodule\nExit the module, returning to the main menu");
+	registerCommand("getmodule"  , boost::bind(&Console::cmdGetModule  , this, _1),
+			"Usage: getmodule\nReturns the name of the currently loaded module");
 	registerCommand("listmodules", boost::bind(&Console::cmdListModules, this, _1),
 			"Usage: listmodules\nList all modules");
 	registerCommand("loadmodule" , boost::bind(&Console::cmdLoadModule , this, _1),
@@ -76,6 +78,10 @@ void Console::updateModules() {
 void Console::cmdExitModule(const CommandLine &UNUSED(cl)) {
 	hide();
 	_engine->getGame().getModule().exit();
+}
+
+void Console::cmdGetModule(const CommandLine &UNUSED(cl)) {
+	printf("%s", _engine->getGame().getModule().getName().c_str());
 }
 
 void Console::cmdListModules(const CommandLine &UNUSED(cl)) {
