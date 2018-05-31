@@ -40,6 +40,7 @@
 #include "src/engines/jade/jade.h"
 #include "src/engines/jade/game.h"
 #include "src/engines/jade/module.h"
+#include "src/engines/jade/trigger.h"
 
 namespace Engines {
 
@@ -57,6 +58,8 @@ Console::Console(JadeEngine &engine) :
 			"Usage: listmodules\nList all modules");
 	registerCommand("loadmodule" , boost::bind(&Console::cmdLoadModule , this, _1),
 			"Usage: loadmodule <module>\nLoad and enter the specified module");
+	registerCommand("listtriggers" , boost::bind(&Console::cmdListTriggers, this, _1),
+			"Usage: listtriggers\nList all triggers in this area");
 }
 
 Console::~Console() {
@@ -66,6 +69,7 @@ void Console::updateCaches() {
 	::Engines::Console::updateCaches();
 
 	updateModules();
+	updateTriggers();
 }
 
 void Console::updateModules() {
@@ -73,6 +77,11 @@ void Console::updateModules() {
 	Game::getModules(_modules);
 
 	setArguments("loadmodule", _modules);
+}
+
+void Console::updateTriggers() {
+  _triggers.clear();
+  _triggers=  _engine->getGame().getModule().getCurrentArea()->getTriggers();
 }
 
 void Console::cmdExitModule(const CommandLine &UNUSED(cl)) {
@@ -104,6 +113,12 @@ void Console::cmdLoadModule(const CommandLine &cl) {
 	}
 
 	printf("No such module \"%s\"", cl.args.c_str());
+}
+
+void Console::cmdListTriggers(const CommandLine &UNUSED(cl)) {
+  for (std::vector<Trigger>::iterator t = _triggers.begin(); t != _triggers.end(); ++t) {
+    printf("%s", t->getTransitionText().c_str());
+  }
 }
 
 } // End of namespace Jade

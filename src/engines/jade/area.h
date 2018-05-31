@@ -39,6 +39,7 @@
 #include "src/engines/jade/arealayout.h"
 #include "src/engines/jade/module.h"
 #include "src/engines/jade/object.h"
+#include "src/engines/jade/trigger.h"
 
 namespace Engines {
 
@@ -74,6 +75,8 @@ public:
 	/** Forcibly remove the focus from the currently highlighted object. */
 	void removeFocus();
 
+	std::vector<Trigger> getTriggers();
+
 
 protected:
 	void notifyCameraMoved();
@@ -89,6 +92,10 @@ private:
 
 	ObjectList _objects;   ///< List of all objects in the area.
 	ObjectMap  _objectMap; ///< Map of all non-static objects in the area.
+
+	// really should be a 'trigger list' -- but i tried that and it didn't
+	// work?
+	std::vector<Trigger> _triggers; ///< List of all triggers in the area.
 
 	/** The currently active (highlighted) object. */
 	Jade::Object *_activeObject;
@@ -110,6 +117,7 @@ private:
 	void loadResources();
 
 	void loadObject(Jade::Object &object);
+	void loadTrigger(Jade::Trigger &trigger);
 
 	void loadWaypoints (const Aurora::GFF3List &list);
 	void loadCreatures (const Aurora::GFF3List &list);

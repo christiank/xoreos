@@ -198,6 +198,10 @@ void Area::loadObject(Object &object) {
 	}
 }
 
+void Area::loadTrigger(Trigger &trigger) {
+  _triggers.push_back(trigger);
+}
+
 void Area::loadWaypoints(const Aurora::GFF3List &list) {
 	for (Aurora::GFF3List::const_iterator w = list.begin(); w != list.end(); ++w) {
 		Waypoint *waypoint = new Waypoint(**w);
@@ -227,6 +231,7 @@ void Area::loadTriggers(const Aurora::GFF3List &list) {
 		Trigger *trigger = new Trigger(**c);
 
 		loadObject(*trigger);
+    loadTrigger(*trigger);
 	}
 }
 
@@ -328,6 +333,10 @@ void Area::removeFocus() {
 
 void Area::notifyCameraMoved() {
 	checkActive();
+}
+
+std::vector<Trigger> Area::getTriggers() {
+  return _triggers;
 }
 
 } // End of namespace Jade

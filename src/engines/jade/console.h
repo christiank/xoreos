@@ -29,6 +29,8 @@
 
 #include "src/engines/aurora/console.h"
 
+#include "src/engines/jade/trigger.h"
+
 namespace Engines {
 
 namespace Jade {
@@ -46,17 +48,20 @@ private:
 
 	// Caches
 	std::vector<Common::UString> _modules; ///< All known modules.
-
+	std::vector<Jade::Trigger> _triggers; ///< All known triggers.
 
 	// Updating the caches
 	void updateCaches();
 	void updateModules();
+	void updateTriggers();
 
 	// The commands
 	void cmdExitModule (const CommandLine &cl);
 	void cmdGetModule  (const CommandLine &cl);
 	void cmdListModules(const CommandLine &cl);
 	void cmdLoadModule (const CommandLine &cl);
+
+	void cmdListTriggers(const CommandLine &cl);
 };
 
 } // End of namespace Jade
