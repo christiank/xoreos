@@ -128,8 +128,8 @@ void MainMenu::callbackActive(Widget &widget) {
 		return;
 	}
 
-  if (widget.getTag() == "EXIT")
-    EventMan.requestQuit();
+	if (widget.getTag() == "EXIT")
+		EventMan.requestQuit();
 }
 
 void MainMenu::addBackground() {
