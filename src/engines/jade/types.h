@@ -25,6 +25,8 @@
 #ifndef ENGINES_JADE_TYPES_H
 #define ENGINES_JADE_TYPES_H
 
+#include "src/common/ustring.h"
+
 namespace Engines {
 
 namespace Jade {
@@ -48,6 +50,27 @@ enum ObjectType {
 	kObjectTypeSelf         = 0x7FFE,
 	kObjectTypeAll          = 0x7FFF
 };
+
+Common::UString __strobjecttype(ObjectType objecttype) {
+	std::map<ObjectType, Common::UString> m;
+	m[kObjectTypeInvalid] = "kObjectTypeInvalid";
+	m[kObjectTypeContainer] = "kObjectTypeContainer";
+	m[kObjectTypeCreature] = "kObjectTypeCreature";
+	m[kObjectTypeDoor] = "kObjectTypeDoor";
+	m[kObjectTypeTrigger] = "kObjectTypeTrigger";
+	m[kObjectTypePlayerCreature] = "kObjectTypePlayerCreature";
+	m[kObjectTypeArea] = "kObjectTypeArea";
+	m[kObjectTypeProjectile] = "kObjectTypeProjectile";
+	m[kObjectTypePlaceable] = "kObjectTypePlaceable";
+	m[kObjectTypeAreaOfEffect] = "kObjectTypeAreaOfEffect";
+	m[kObjectTypeWaypoint] = "kObjectTypeWaypoint";
+	m[kObjectTypeSound] = "kObjectTypeSound";
+	m[kObjectTypeCrowd] = "kObjectTypeCrowd";
+	m[kObjectTypeMAX] = "kObjectTypeMAX";
+	m[kObjectTypeSelf] = "kObjectTypeSelf";
+	m[kObjectTypeAll] = "kObjectTypeAll";
+	return m[objecttype];
+}
 
 enum Script {
 	kScriptOnHeartbeat           = 0,

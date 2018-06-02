@@ -187,6 +187,20 @@ void Area::loadResources() {
 }
 
 void Area::loadObject(Object &object) {
+  float x, y, z = 0;
+
+  object.getPosition(x, y, z); 
+
+  status(
+    "%s: (%0.2f,%0.2f,%02.f) <%d> %s %s %s",
+    __func__,
+    x, y, z,
+    object.getType(),
+    object.getName().c_str(),
+    (object.isUsable() ? "USABLE" : ""),
+    (object.isStatic() ? "STATIC" : "")
+  );
+
 	_objects.push_back(&object);
 	_module->addObject(object);
 
