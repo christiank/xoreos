@@ -287,6 +287,10 @@ bool ConfigManager::getKey(const UString &key, UString &value) const {
 	       getKey(_domainDefaultApp.get() , key, value);   // Then application defaults
 }
 
+std::vector<UString> ConfigManager::getKeys() const {
+  return _keys;
+}
+
 UString ConfigManager::getString(const UString &key, const UString &def) const {
 	UString value;
 	if (!getKey(key, value))
@@ -341,6 +345,8 @@ double ConfigManager::getDouble(const UString &key, double def) const {
 }
 
 void ConfigManager::setKey(const UString &key, const UString &value, bool update) {
+  status("SETKEY %s", key.c_str());
+  _keys.push_back(key);
 	// Commandline options always get overwritten
 	_domainCommandline->removeKey(key);
 

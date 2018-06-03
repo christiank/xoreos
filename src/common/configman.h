@@ -99,6 +99,7 @@ public:
 
 	bool hasKey(const UString &key) const;
 	bool getKey(const UString &key, UString &value) const;
+	std::vector<UString> getKeys() const;
 
 	// Specialized getters. */
 	UString getString(const UString &key, const UString &def = ""   ) const;
@@ -154,6 +155,8 @@ private:
 	bool hasKey(const ConfigDomain *domain, const UString &key) const;
 	bool getKey(const ConfigDomain *domain, const UString &key, UString &value) const;
 	bool setKey(ConfigDomain *domain, const UString &key, const UString &value);
+
+	std::vector<UString> _keys;
 };
 
 } // End of namespace Common

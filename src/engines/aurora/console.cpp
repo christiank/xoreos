@@ -743,6 +743,8 @@ Console::Console(Engine &engine, const Common::UString &font, int fontHeight) :
 			"Usage: getoption <option>\nPrint the value of a config options");
 	registerCommand("setoption"  , boost::bind(&Console::cmdSetOption  , this, _1),
 			"Usage: setoption <option> <value>\nSet the value of a config option for this session");
+	registerCommand("listoptions", boost::bind(&Console::cmdListOptions , this, _1),
+			"Usage: listoptions\nList all configuration options and their values");
 	registerCommand("showfps"    , boost::bind(&Console::cmdShowFPS    , this, _1),
 			"Usage: showfps <true/false>\nShow/Hide the frames-per-second display");
 	registerCommand("listlangs"  , boost::bind(&Console::cmdListLangs  , this, _1),
@@ -1310,6 +1312,13 @@ void Console::cmdSetOption(const CommandLine &cl) {
 	_engine->showFPS();
 
 	printf("\"%s\" = \"%s\"", args[0].c_str(), ConfigMan.getString(args[0]).c_str());
+}
+
+void Console::cmdListOptions(const CommandLine &UNUSED(cl)) {
+  std::vector<Common::UString> keys = ConfigMan.getKeys();
+  for (std::vector<Common::UString>::iterator key = keys.begin(); key!= keys.end(); ++key) {
+    printf("\"%s\" = \"%s\"", key->c_str(), ConfigMan.getString(*key).c_str());
+  }
 }
 
 void Console::cmdShowFPS(const CommandLine &cl) {
