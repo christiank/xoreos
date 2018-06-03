@@ -32,6 +32,7 @@
 #include "src/common/strutil.h"
 #include "src/common/filepath.h"
 #include "src/common/readline.h"
+#include "src/common/readfile.h"
 #include "src/common/configman.h"
 
 #include "src/aurora/resman.h"
@@ -759,6 +760,8 @@ Console::Console(Engine &engine, const Common::UString &font, int fontHeight) :
 	registerCommand("setcamera"  , boost::bind(&Console::cmdSetCamera  , this, _1),
 			"Usage: setcamera <posX> <posY> <posZ> [<orientX> <orientY> <orientZ>]\n"
 			"Set the camera position (and orientation)");
+  registerCommand("source"     , boost::bind(&Console::cmdSource     , this, _1),
+      "Usage: source <path>\nExecute commands from the given script");
 
 	_console->print("Console ready...");
 }
@@ -1458,6 +1461,48 @@ void Console::cmdSetCamera(const CommandLine &cl) {
 		CameraMan.setOrientation(orient[0], orient[1], orient[2]);
 
 	CameraMan.update();
+}
+
+void Console::cmdSource(const CommandLine &cl) {
+  std::vector<Common::UString> args;
+  splitArguments(cl.args, args);
+
+  if (args.size() < 1) {
+    printCommandHelp(cl.cmd);
+    return;
+  }
+
+  Common::UString path = args[0];
+  path = Common::FilePath::absolutize(path);
+
+  if (!Common::FilePath::isRegularFile(path)) {
+    printf("\"%s\" is not a regular file, or does not exist", path.c_str());
+    return;
+  }
+
+  Common::ReadFile *fp = new Common::ReadFile(path);
+  std::stringstream ss;
+  char *chunk = (char *)malloc(1024);
+
+  while (!fp->eos()) {
+    fp->read(chunk, sizeof(chunk));
+    ss << std::string(chunk);
+  }
+
+  free(chunk);
+  ss.seekp(0);
+
+  char *line = (char *)malloc(256);
+
+  while (!ss.eof()) {
+    ss.getline(line, 256);
+    printf("+ %s", chunk);
+    Common::UString cmdline = Common::UString(line);
+    fprintf();
+    execute(Common::UString(cmdline));
+  }
+
+  free(line);
 }
 
 void Console::printFullHelp() {

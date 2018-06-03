@@ -306,6 +306,7 @@ private:
 	void cmdGetString  (const CommandLine &cl);
 	void cmdGetCamera  (const CommandLine &cl);
 	void cmdSetCamera  (const CommandLine &cl);
+	void cmdSource     (const CommandLine &cl);
 
 	void updateHelpArguments();
 
