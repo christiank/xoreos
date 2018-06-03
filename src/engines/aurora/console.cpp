@@ -1482,7 +1482,7 @@ void Console::cmdSource(const CommandLine &cl) {
 
   Common::ReadFile *fp = new Common::ReadFile(path);
   std::stringstream ss;
-  char *chunk = (char *)malloc(1024);
+  char *chunk = (char *)calloc(1, 1024);
 
   while (!fp->eos()) {
     fp->read(chunk, sizeof(chunk));
@@ -1492,14 +1492,14 @@ void Console::cmdSource(const CommandLine &cl) {
   free(chunk);
   ss.seekp(0);
 
-  char *line = (char *)malloc(256);
+  char *line = (char *)calloc(1, 128);
 
   while (!ss.eof()) {
-    ss.getline(line, 256);
-    printf("+ %s", chunk);
+    ss.getline(line, 128);
     Common::UString cmdline = Common::UString(line);
-    fprintf();
-    execute(Common::UString(cmdline));
+    cmdline.trim();
+    printf("+ %s", cmdline.c_str());
+    execute(cmdline);
   }
 
   free(line);
