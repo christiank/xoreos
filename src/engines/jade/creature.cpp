@@ -94,6 +94,9 @@ void Creature::setOrientation(float x, float y, float z, float angle) {
 void Creature::load(const Aurora::GFF3Struct &creature) {
 	Common::UString temp = creature.getString("ResRef");
 
+	if (creature.getString("Tag") != "j01c_stujing_01")
+		return;
+
 	if (!temp.empty()) {
 		try {
 			Common::ScopedPtr<Aurora::GFF3File>
@@ -118,6 +121,10 @@ void Creature::load(const Aurora::GFF3Struct &creature) {
 	loadAppearance();
 
 	loadInstance(creature);
+
+	float x, y, z;
+	getPosition(x, y, z);
+	warning("[%s] (%0.2f,%0.2f,%0.2f)", _tag.c_str(), x, y, z);
 }
 
 void Creature::loadBlueprint(const Aurora::GFF3Struct &gff) {

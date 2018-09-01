@@ -147,6 +147,7 @@ void CameraManager::turn(float x, float y, float z) {
 
 void CameraManager::move(float x, float y, float z) {
 	setPosition(_position[0] + x, _position[1] + y, _position[2] + z);
+	warning("(%0.2f,%0.2f,%0.2f)", _position[0], _position[1], _position[2]);
 }
 
 void CameraManager::moveRelative(float x, float y, float z) {

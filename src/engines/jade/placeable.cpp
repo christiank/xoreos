@@ -62,6 +62,7 @@ void Placeable::hide() {
 }
 
 void Placeable::load(const Aurora::GFF3Struct &placeable) {
+	return;
 	_resRef = placeable.getString("ResRef");
 
 	if (!_resRef.empty()) {
